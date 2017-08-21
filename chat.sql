@@ -13,5 +13,6 @@ CREATE TABLE `users` (
 CREATE TABLE `messages` (
     `id`    INT AUTO_INCREMENT PRIMARY KEY,
     `user` VARCHAR (64) NOT NULL,
-    `text` VARCHAR(512) NOT NULL
-);
+    `text` VARCHAR(512) NOT NULL,
+    `date` DATETIME NOT NULL
+ );

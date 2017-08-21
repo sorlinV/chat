@@ -68,22 +68,22 @@ class Data
 
     public function addMessage(Message $m) {
         try {
-            $req = $this->db->prepare('INSERT INTO messages(user, text)'.
-                'VALUES (:user, :text)');
-            $req->execute(['user'=>$m->getUser(), 'text'=>$m->getMessage()]);
+            $req = $this->db->prepare('INSERT INTO messages(user, text, `date`)'.
+                'VALUES (:user, :text, :date)');
+            $req->execute(['user'=>$m->getUser(), 'text'=>$m->getMessage(), 'date'=>$m->getDate()]);
             $this->db->lastInsertId();
         } catch (PDOException $exception) {
             echo $exception->getMessage();
         }
     }
 
-    public function getMessages () {
+    public function getMessages ($id) {
         $messages = [];
         try {
-            $req = $this->db->prepare('SELECT * from messages');
-            $req->execute();
+            $req = $this->db->prepare('SELECT * from messages WHERE id>:id ORDER  BY !id');
+            $req->execute(['id' => $id]);
             while ($m = $req->fetch()) {
-                $messages[] = new Message($m['user'], $m['text']);
+                $messages[] = $m;/*new Message($m['user'], $m['text'], $m['date']);*/
             }
             return $messages;
         } catch (PDOException $exception) {

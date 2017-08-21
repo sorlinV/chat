@@ -10,16 +10,18 @@ class message
 {
     private $user;
     private $message;
+    private $date;
 
     /**
      * message constructor.
      * @param $user
      * @param $message
      */
-    public function __construct($user, $message)
+    public function __construct($user, $message, $date)
     {
         $this->user = $user;
         $this->message = $message;
+        $this->date = $date;
     }
 
     /**
@@ -36,6 +38,14 @@ class message
     public function getMessage()
     {
         return $this->message;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDate()
+    {
+        return $this->date;
     }
 
 
